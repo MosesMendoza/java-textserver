@@ -4,24 +4,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import java.util.ArrayList;
-import java.net.URI;
+import java.net.MalformedURLException;
+import java.net.URL;
 import textserver.UrlParser;
 
 public class UrlParserTest {
   @Test
-  public void shouldParseTextAndReturnUris(){
-    String urisAsString = "http://foo.bar.baz,http://baz.quux.qux";
-    URI uri0 = URI.create("http://foo.bar.baz");
-    URI uri1 = URI.create("http://baz.quux.qux");
+  public void shouldParseTextAndReturnurls() throws MalformedURLException {
+    String urlsAsString = "http://foo.bar.baz,http://baz.quux.qux";
+    URL url0 = new URL("http://foo.bar.baz");
+    URL url1 = new URL("http://baz.quux.qux");
 
-    ArrayList<URI> uris = UrlParser.parseUris(urisAsString);
-    assertEquals(uris.get(0), uri0);
-    assertEquals(uris.get(1), uri1);
+    ArrayList<URL> urls = UrlParser.parseUrls(urlsAsString);
+    assertEquals(urls.get(0), url0);
+    assertEquals(urls.get(1), url1);
   }
 
   public void shouldReturnEmptyListGivenEmptyString(){
     String emptyUri = "";
-    ArrayList<URI> uris = UrlParser.parseUris(emptyUri);
-    assertTrue(uris.isEmpty());
+    ArrayList<URL> urls = UrlParser.parseUrls(emptyUri);
+    assertTrue(urls.isEmpty());
   }
 }

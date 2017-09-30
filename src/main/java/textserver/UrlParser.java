@@ -27,7 +27,9 @@
 // supplied to our application in the body of a POST
 package textserver;
 
-import java.net.URI;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 
 public class UrlParser {
@@ -35,16 +37,21 @@ public class UrlParser {
   // This is a static-only class - no UrlParser objects should be instantiated
   private UrlParser() {}
 
-  public final static ArrayList<URI> parseUris(String body) {
+  public final static ArrayList<URL> parseUrls(String body) {
     if (body.isEmpty()) {
-      return new ArrayList<URI>(0);
+      return new ArrayList<URL>(0);
     }
     else {
-      ArrayList<URI> uris = new ArrayList<URI>();
-      for(String uriAsString : body.split(",")) {
-          uris.add(URI.create(uriAsString));
+      ArrayList<URL> urls = new ArrayList<URL>();
+      for(String urlAsString : body.split(",")) {
+          try {
+            urls.add(new URL(urlAsString));
+          }
+          catch(MalformedURLException e) {
+            e.printStackTrace();
+          }
       }
-      return uris;
+      return urls;
     }
   }
 }
