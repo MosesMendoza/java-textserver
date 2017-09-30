@@ -29,7 +29,6 @@ package textserver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 
 public class UrlParser {
@@ -37,6 +36,11 @@ public class UrlParser {
   // This is a static-only class - no UrlParser objects should be instantiated
   private UrlParser() {}
 
+  /**
+   * Returns an ArrayList of URL objects corresponding to a supplied comma-separated string of URLs
+   * @param body String containing a comma-separated list of URLs
+   * @return ArrayList<URL> list of URL objects corresponding to supplied URLs in String body
+   */
   public final static ArrayList<URL> parseUrls(String body) {
     if (body.isEmpty()) {
       return new ArrayList<URL>(0);
